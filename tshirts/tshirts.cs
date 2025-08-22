@@ -1,22 +1,25 @@
-﻿using System;
-using System.Diagnostics;
+#include <iostream>
+#include <assert.h>
 
-namespace TshirtSpace {
-    class Tshirt {
-        static string Size(int cms) {
-            if(cms < 38) {
-                return "S";
-            } else if(cms > 38 && cms < 42) {
-                return "M";
-            } else {
-                return "L";
-            }
-        }
-        static void Main(string[] args) {
-            Debug.Assert(Size(37) == "S");
-            Debug.Assert(Size(40) == "M");
-            Debug.Assert(Size(43) == "L");
-            Console.WriteLine( "All is well (maybe!)");
-        }
+char size(int cms) {
+    char sizeName = '\0';
+    if(cms < 38) {
+        sizeName = 'S';
+    } else if(cms > 38 && cms < 42) {
+        sizeName = 'M';
+    } else if(cms > 42) {
+        sizeName = 'L';
     }
+    return sizeName;
+}
+
+void testTshirtSize() {
+    std::cout << "\nTshirt size test\n";
+    assert(size(37) == 'S');
+    assert(size(40) == 'M');
+    assert(size(43) == 'L');
+    // Strengthen: test the missing boundaries
+    assert(size(38) == 'S'); // Should fail (returns '\0')
+    assert(size(42) == 'L'); // Should fail (returns '\0')
+    std::cout << "All is well (maybe!)\n";
 }
